@@ -250,21 +250,21 @@ export default function HomePage() {
         </div>
       </div>
 
+      {/* QuickFocus */}
+      <Card className="quick-focus surface-card">
+        <div className="quick-focus__icon">🍅</div>
+        <div className="quick-focus__info">
+          <div className="quick-focus__title">快速专注</div>
+          <div className="quick-focus__sub">选一个任务，开始番茄钟专注</div>
+        </div>
+        <Link to={firstPending ? `/focus/${firstPending.id}` : '/tasks'}>
+          <Button danger type="primary" size="middle" icon={<Play size={15} />}>开始</Button>
+        </Link>
+      </Card>
+
       {/* ───── 主体两栏 ───── */}
       <div className="home__cols">
         <div className="home__left">
-          {/* QuickFocus */}
-          <Card className="quick-focus surface-card">
-            <div className="quick-focus__icon">🍅</div>
-            <div className="quick-focus__info">
-              <div className="quick-focus__title">快速专注</div>
-              <div className="quick-focus__sub">选一个任务，开始番茄钟专注</div>
-            </div>
-            <Link to={firstPending ? `/focus/${firstPending.id}` : '/tasks'}>
-              <Button danger type="primary" size="middle" icon={<Play size={15} />}>开始</Button>
-            </Link>
-          </Card>
-
           {/* ProgCard 暑假作业进度 */}
           <Card className="prog-card surface-card">
             <div className="prog-card__head">
