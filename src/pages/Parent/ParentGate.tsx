@@ -5,12 +5,11 @@ import { sha256, storage } from '@/services';
 import './ParentGate.css';
 
 const PIN_HASH_KEY = 'parent.pinHash';
-const SESSION_KEY = 'island.v1.parent.unlocked';
 const PIN_LEN = 4;
 
-/** 家长端拦截：首次无 PIN → 设置流；有 PIN → 验证流；本会话已通过 → 直接展示 */
+/** 家长端拦截：首次无 PIN → 设置流；有 PIN → 每次进入均验证 */
 export default function ParentGate() {
-  const [unlocked, setUnlocked] = useState(() => sessionStorage.getItem(SESSION_KEY) === '1');
+  const [unlocked, setUnlocked] = useState(false);
   const [hasPin, setHasPin] = useState(() => Boolean(storage.get<string | null>(PIN_HASH_KEY, null)));
 
   if (unlocked) return <ParentPage />;
@@ -20,7 +19,6 @@ export default function ParentGate() {
       <SetPinScreen
         onDone={async (pin) => {
           storage.set(PIN_HASH_KEY, await sha256(pin));
-          sessionStorage.setItem(SESSION_KEY, '1');
           setHasPin(true);
           setUnlocked(true);
         }}
@@ -31,7 +29,6 @@ export default function ParentGate() {
   return (
     <VerifyPinScreen
       onOk={() => {
-        sessionStorage.setItem(SESSION_KEY, '1');
         setUnlocked(true);
       }}
     />

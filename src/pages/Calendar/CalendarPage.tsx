@@ -2,13 +2,13 @@ import { useMemo, useState } from 'react';
 import { Button, Card, Tag } from 'animal-island-ui';
 import { Check, ChevronLeft, ChevronRight, PiggyBank } from 'lucide-react';
 import PageHeader from '@/components/layout/PageHeader';
-import { useDayTasks } from '@/hooks/useDayTasks';
 import {
   getMonthCheckIns,
   getMonthPoints,
   getStreakDays,
   isDayCheckedIn,
   previewBankPoints,
+  scanAllInstances,
   seedConfig,
 } from '@/services';
 import { todayKey } from '@/utils/date';
@@ -50,7 +50,10 @@ export default function CalendarPage() {
   const [selected, setSelected] = useState(() => todayKey());
   const cells = useMemo(() => buildMonth(cursor), [cursor]);
 
-  const { tasks } = useDayTasks(selected);
+  const tasks = useMemo(
+    () => scanAllInstances().filter((task) => task.date === selected && task.pickedAt !== undefined),
+    [selected],
+  );
   const approved = tasks.filter((t) => t.status === 'approved');
   const totalPts = approved.reduce((a, t) => a + (t.awardedPoints ?? 0), 0);
   const goal = DAILY_TARGET;
@@ -172,6 +175,34 @@ export default function CalendarPage() {
             </Card>
           </div>
 
+          <Card className="cal-day-goal">
+            <div className="cal-day-goal__row">
+              <span>今日目标</span>
+              <span>{totalPts} / {goal} pts</span>
+            </div>
+            <div className="cal-day-goal__bar">
+              <div style={{ width: `${goalPct}%` }} />
+            </div>
+          </Card>
+
+          <Card color="app-yellow" pattern="app-yellow" className="time-bank-card">
+            <div className="time-bank-card__head">
+              <PiggyBank size={16} color="var(--c-yellow)" />
+              <span className="time-bank-card__title">今日时间银行</span>
+              <div className="cal-side__spacer" />
+              <Tag size="small" color="app-yellow" variant="solid">+{bankPts} pts</Tag>
+            </div>
+            <div className="time-bank-card__meta">
+              节约 <strong>{savedMinutes.toFixed(1)}</strong> 分钟 · 单日封顶 {dailyCap} 分
+            </div>
+            <div className="time-bank-card__bar">
+              <div style={{ width: `${Math.min(100, (savedMinutes / dailyCap) * 100)}%` }} />
+            </div>
+            <div className="time-bank-card__hint">
+              仅质量通过的任务计入 · 前 {seedConfig.timeBankHighTierMinutes} 分高倍率、后 {dailyCap - seedConfig.timeBankHighTierMinutes} 分中倍率
+            </div>
+          </Card>
+
           <div className="cal-day-lbl">当日任务</div>
           <div className="cal-day-list">
             {tasks.length === 0 ? (
@@ -192,34 +223,6 @@ export default function CalendarPage() {
             )}
           </div>
 
-          {/* 时间银行结算卡（§五） */}
-          <Card color="app-yellow" pattern="app-yellow" className="time-bank-card">
-            <div className="time-bank-card__head">
-              <PiggyBank size={16} color="var(--c-yellow)" />
-              <span className="time-bank-card__title">今日时间银行</span>
-              <div className="cal-side__spacer" />
-              <Tag size="small" color="app-yellow" variant="solid">+{bankPts} pts</Tag>
-            </div>
-            <div className="time-bank-card__meta">
-              节约 <strong>{savedMinutes.toFixed(1)}</strong> 分钟 · 单日封顶 {dailyCap} 分
-            </div>
-            <div className="time-bank-card__bar">
-              <div style={{ width: `${Math.min(100, (savedMinutes / dailyCap) * 100)}%` }} />
-            </div>
-            <div className="time-bank-card__hint">
-              仅质量通过的任务计入 · 前 {seedConfig.timeBankHighTierMinutes} 分高倍率、后 {dailyCap - seedConfig.timeBankHighTierMinutes} 分中倍率
-            </div>
-          </Card>
-
-          <Card className="cal-day-goal">
-            <div className="cal-day-goal__row">
-              <span>今日目标</span>
-              <span>{totalPts} / {goal} pts</span>
-            </div>
-            <div className="cal-day-goal__bar">
-              <div style={{ width: `${goalPct}%` }} />
-            </div>
-          </Card>
         </aside>
       </div>
     </>
