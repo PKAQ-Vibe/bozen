@@ -1,0 +1,231 @@
+/* 家长管理端（jG0S4）— 深棕头部 + parchment body */
+
+/* Header 覆盖为暗棕主题（页面级） */
+.parent-page ~ *, .parent-page {}
+
+.parent-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: #f2ebe0;
+}
+
+/* header 里的深色 pill（修改密码/PIN 已解锁） */
+.parent-lock {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  background: #3a2818;
+  color: #f5ede0;
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ───── 顶部两栏 ───── */
+.parent-top {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 20px;
+}
+@media (max-width: 1100px) { .parent-top { grid-template-columns: 1fr; } }
+
+.parent-col { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.parent-col--redeem { }
+
+.parent-section-head { display: flex; align-items: center; gap: 10px; }
+.parent-section-title {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 700;
+  color: #3a2818;
+}
+.parent-section-spacer { flex: 1; }
+
+.parent-list { display: flex; flex-direction: column; gap: 10px; }
+.parent-empty {
+  padding: 24px;
+  text-align: center;
+  background: var(--bg-card);
+  border: 1px dashed var(--c-border);
+  border-radius: 12px;
+  color: var(--c-muted);
+  font-size: 16px;
+}
+
+/* ───── 待审核任务卡 ───── */
+.review-card {
+  background: var(--bg-card);
+  border: 1px solid var(--c-border);
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+.review-card__info { flex: 1; display: flex; flex-direction: column; gap: 8px; min-width: 0; line-height: 1.5; }
+.review-card__title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--c-dark);
+}
+.review-card__meta { font-size: 16px; color: var(--c-muted); }
+.review-card__preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+.review-card__preview-num {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--c-green);
+}
+.review-card__preview-label { font-size: 16px; color: var(--c-muted); }
+.review-card__actions { display: flex; gap: 8px; }
+
+/* ───── 兑换卡 ───── */
+.redeem-card {
+  background: var(--bg-card);
+  border: 1px solid var(--c-border);
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.redeem-card__top { display: flex; align-items: center; gap: 12px; }
+.redeem-card__name { flex: 1; font-size: 16px; font-weight: 700; color: var(--c-dark); }
+.redeem-card__meta { font-size: 16px; color: var(--c-muted); }
+.redeem-card__actions { display: flex; gap: 8px; }
+
+/* ───── 本周完成报告（深棕） ───── */
+.parent-report {
+  background: #4a3420;
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.parent-report__title {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 700;
+  color: #f5ede0;
+}
+.parent-report__body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+@media (max-width: 900px) { .parent-report__body { grid-template-columns: 1fr; } }
+
+.parent-report__stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+.parent-stat {
+  background: #3a2818;
+  border-radius: 10px;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+.parent-stat__value {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--c-yellow);
+}
+.parent-stat__label { font-size: 16px; color: #c4a880; }
+
+.parent-report__subjects { display: flex; flex-direction: column; gap: 6px; }
+.parent-report__hint { color: #c4a880; font-size: 16px; text-align: center; padding: 12px 0; }
+.parent-sub-row { display: flex; align-items: center; gap: 8px; }
+.parent-sub-row__name { width: 48px; font-size: 16px; color: #c4a880; flex-shrink: 0; }
+.parent-sub-row__bar {
+  flex: 1;
+  height: 6px;
+  background: #3a2818;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.parent-sub-row__bar > div { height: 100%; background: var(--c-yellow); border-radius: 3px; }
+.parent-sub-row__pts {
+  width: 32px;
+  text-align: right;
+  font-size: 16px;
+  font-weight: 600;
+  color: #f5ede0;
+}
+
+.review-submission {
+  background: #f7f3ea;
+  border-radius: 8px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.review-submission__label { font-size: 16px; color: var(--c-muted); }
+.review-submission__text { font-size: 16px; color: var(--c-dark); white-space: pre-wrap; }
+.review-submission__images { display: flex; gap: 6px; flex-wrap: wrap; }
+.review-submission__images img {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--c-border);
+  display: block;
+}
+.review-submission__image-btn {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: zoom-in;
+  border-radius: 6px;
+  transition: transform 0.15s;
+}
+.review-submission__image-btn:hover { transform: scale(1.03); }
+
+.review-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.82);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+  cursor: zoom-out;
+  border: 0;
+}
+.review-lightbox img {
+  max-width: 92vw;
+  max-height: 82vh;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+}
+.review-lightbox__hint { color: rgba(255, 255, 255, 0.7); font-size: 16px; }
+
+.review-input-row { display: flex; flex-direction: column; gap: 4px; }
+.review-input-row__label { font-size: 16px; color: var(--c-muted); }
+.review-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--c-border);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 16px;
+}

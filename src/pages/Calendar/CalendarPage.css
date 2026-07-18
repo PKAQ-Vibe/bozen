@@ -1,0 +1,249 @@
+/* 学习日历（cLBtS） */
+
+.cal-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  padding: 6px 16px;
+  border-radius: 10px;
+}
+.cal-stat__value {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 700;
+}
+.cal-stat__label { font-size: 16px; color: var(--c-muted); }
+.cal-stat--green { background: var(--c-green-lt); }
+.cal-stat--green .cal-stat__value { color: var(--c-green); }
+.cal-stat--orange { background: #fff0e8; }
+.cal-stat--orange .cal-stat__value { color: var(--c-orange); }
+.cal-stat--yellow { background: var(--c-yellow-lt); }
+.cal-stat--yellow .cal-stat__value { color: #8b6914; }
+
+.cal-page {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 20px;
+  align-items: stretch;
+}
+@media (max-width: 1100px) { .cal-page { grid-template-columns: 1fr; } }
+
+.cal-main { display: flex; flex-direction: column; }
+.cal-card {
+  background: var(--bg-card);
+  border: 1px solid var(--c-border);
+  border-radius: 16px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+}
+.cal-toolbar { display: flex; align-items: center; gap: 10px; }
+.cal-toolbar__title {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--c-dark);
+}
+.cal-toolbar__spacer { flex: 1; }
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+.cal-head {
+  text-align: center;
+  padding: 6px 0;
+  font-size: 16px;
+  color: var(--c-muted);
+  font-weight: 600;
+}
+.cal-cell {
+  aspect-ratio: 1.15;
+  min-height: 68px;
+  padding: 10px;
+  border: 1px solid var(--c-border);
+  background: #fdfbf3;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  font: inherit;
+}
+.cal-cell:hover { background: #fff9e8; }
+.cal-cell--dim { opacity: 0.35; }
+.cal-cell--sel { border-color: var(--c-green); background: #f0f9f0; }
+.cal-cell--today { border-color: var(--c-orange); background: var(--c-green); color: #fff; }
+.cal-cell--today .cal-cell__num { color: #fff; }
+.cal-cell__num {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--c-dark);
+}
+.cal-cell__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--c-green);
+}
+.cal-cell--today .cal-cell__dot { background: #fff; }
+
+.cal-legend {
+  display: flex;
+  gap: 14px;
+  padding: 4px 4px 0;
+  font-size: 16px;
+  color: var(--c-muted);
+}
+.cal-legend span { display: inline-flex; align-items: center; gap: 4px; }
+.cal-legend__dot { width: 8px; height: 8px; border-radius: 4px; display: inline-block; }
+.cal-legend__dot--done { background: var(--c-green); }
+.cal-legend__dot--miss { background: #ddd; }
+.cal-legend__dot--today { background: var(--c-orange); }
+
+/* Side */
+.cal-side { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.cal-side__spacer { flex: 1; }
+
+.cal-day-head { display: flex; flex-direction: column; gap: 3px; }
+.cal-day-head__date {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--c-dark);
+}
+.cal-day-head__today {
+  background: var(--c-green);
+  color: #fff;
+  font-size: 16px;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.cal-day-head__hint { font-size: 16px; color: var(--c-muted); }
+
+.cal-day-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+.cal-day-stat {
+  background: var(--bg-card);
+  border: 1px solid var(--c-border);
+  border-radius: 10px;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+.cal-day-stat__value {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--c-dark);
+}
+.cal-day-stat__label { font-size: 16px; color: var(--c-muted); }
+
+.cal-day-lbl {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--c-dark);
+  margin-top: 2px;
+}
+
+.cal-day-list { display: flex; flex-direction: column; gap: 8px; }
+.cal-day-empty {
+  padding: 16px;
+  text-align: center;
+  color: var(--c-muted);
+  font-size: 16px;
+  background: var(--bg-card);
+  border: 1px dashed var(--c-border);
+  border-radius: 10px;
+}
+.cal-task-row {
+  background: var(--bg-card);
+  border: 1px solid var(--c-border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+}
+.cal-task-row--done { background: #f0f9f0; border-color: #c0e0c0; }
+.cal-task-row__check {
+  width: 18px; height: 18px;
+  border: 1.5px solid var(--c-border);
+  border-radius: 5px;
+  background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.cal-task-row__check--done { background: var(--c-green); border-color: var(--c-green); }
+.cal-task-row__title { flex: 1; color: var(--c-dark); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* 时间银行卡 */
+.time-bank-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--c-yellow);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(245, 197, 24, 0.12);
+}
+.time-bank-card__head { display: flex; align-items: center; gap: 8px; }
+.time-bank-card__title {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--c-dark);
+}
+.time-bank-card__meta { font-size: 16px; color: var(--c-mid); }
+.time-bank-card__bar {
+  height: 8px;
+  background: #ede8e0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.time-bank-card__bar > div { height: 100%; background: var(--c-yellow); }
+.time-bank-card__hint { font-size: 16px; color: var(--c-muted); }
+
+/* 目标 */
+.cal-day-goal {
+  background: var(--bg-card);
+  border: 1px solid var(--c-border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cal-day-goal__row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  color: var(--c-dark);
+  font-weight: 600;
+}
+.cal-day-goal__bar {
+  height: 6px;
+  background: #ede8e0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.cal-day-goal__bar > div { height: 100%; background: var(--c-green); }

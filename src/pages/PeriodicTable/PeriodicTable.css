@@ -1,0 +1,157 @@
+/* 元素周期表 · 唯一整表页 */
+
+.pt-page { display: flex; flex-direction: column; gap: 14px; }
+
+/* 图例 */
+.pt-legend { padding: 14px 18px !important; }
+.pt-legend__grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 20px;
+  margin-top: 8px;
+}
+.pt-legend__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 16px;
+  color: var(--c-mid);
+}
+.pt-legend__swatch {
+  width: 16px;
+  height: 16px;
+  border-radius: 5px;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+.pt-legend__swatch--must {
+  background: #dff2ff;
+  border: 2px solid #4c9fd3;
+}
+
+/* 主表 */
+.pt-table { padding: 14px !important; }
+.pt-scroll {
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
+.pt-group-row, .pt-period-row {
+  display: grid;
+  grid-template-columns: 32px repeat(18, 1fr);
+  gap: 3px;
+  min-width: 1800px;
+}
+.pt-group-row { margin-bottom: 4px; }
+
+.pt-corner { }
+.pt-group-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2px 0;
+  border-bottom: 2px solid var(--c-border);
+  font-size: 16px;
+  color: var(--c-mid);
+}
+.pt-group-cell__num { font-family: var(--font-heading); font-weight: 700; font-size: 16px; }
+.pt-group-cell__code { font-size: 16px; color: var(--c-muted); }
+.pt-group-cell--noble {
+  border-bottom-color: var(--c-red);
+  background: rgba(232, 72, 72, 0.05);
+  border-radius: 4px 4px 0 0;
+}
+.pt-group-cell--noble .pt-group-cell__code { color: var(--c-red); font-weight: 700; }
+
+.pt-period-row { margin-bottom: 3px; }
+.pt-period-row--core {
+  margin-bottom: 0;
+  box-sizing: border-box;
+  padding-right: 6px;
+  padding-left: 6px;
+  background: rgba(207, 237, 255, 0.48);
+  box-shadow: inset 3px 0 #4c9fd3, inset -3px 0 #4c9fd3;
+}
+.pt-period-row--core-first {
+  padding-top: 6px;
+  box-shadow: inset 3px 0 #4c9fd3, inset -3px 0 #4c9fd3, inset 0 3px #4c9fd3;
+}
+.pt-period-row--core-last {
+  padding-bottom: 6px;
+  margin-bottom: 6px;
+  box-shadow: inset 3px 0 #4c9fd3, inset -3px 0 #4c9fd3, inset 0 -3px #4c9fd3;
+}
+.pt-period-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--c-mid);
+  font-size: 16px;
+  border-right: 2px solid var(--c-border);
+}
+.pt-period-num--lan { font-size: 16px; text-align: center; }
+
+.pt-cell {
+  aspect-ratio: 1;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border: 1px solid rgba(0,0,0,0.05);
+  min-height: 50px;
+}
+.pt-cell--empty { background: transparent; border: 0; }
+.pt-cell--fill { cursor: help; }
+.pt-cell--must {
+  border-color: rgba(0,0,0,0.05);
+}
+.pt-cell.pt-cell--fill.pt-cell--must { padding: 12px; }
+.pt-cell.pt-cell--fill.pt-cell--must .pt-cell__z { font-size: 16px; }
+.pt-cell.pt-cell--fill.pt-cell--must .pt-cell__sym { font-size: 20px; }
+.pt-cell.pt-cell--fill.pt-cell--must .pt-cell__name { font-size: 20px; }
+.pt-cell--noble {
+  box-shadow: 0 0 0 1.5px var(--c-red);
+}
+.pt-cell--must.pt-cell--noble {
+  box-shadow: 0 0 0 1.5px var(--c-red);
+}
+.pt-cell__z { font-size: 16px; font-weight: 600; color: var(--c-muted); line-height: 1; }
+.pt-cell__sym {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 17px;
+  color: var(--c-dark);
+  line-height: 1.2;
+  margin-top: 2px;
+}
+.pt-cell__name { font-size: 16px; font-weight: 700; color: var(--c-mid); line-height: 1.2; margin-top: 2px; }
+
+.pt-inner-block { margin-top: 14px; padding-top: 8px; border-top: 1px dashed var(--c-border); }
+.pt-inner-row {
+  grid-template-columns: 32px 40px 40px repeat(14, 1fr);
+  min-width: auto;
+  margin-bottom: 3px;
+}
+.pt-inner-row .pt-cell:nth-child(-n+2) { display: none; }
+
+/* 谐音口诀 */
+.pt-mnemonic-wrap { display: flex !important; flex-direction: column; gap: 10px; }
+.pt-mnemonic-head { display: flex; align-items: center; gap: 8px; }
+.pt-mnemonic-spacer { flex: 1; }
+
+.pt-rhyme-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 8px;
+}
+.pt-rhyme-card { display: flex !important; flex-direction: column; gap: 3px; padding: 10px 12px; }
+.pt-rhyme-title { font-family: var(--font-heading); font-size: 16px; font-weight: 700; color: var(--c-mid); }
+.pt-rhyme-text { font-family: var(--font-heading); font-size: 16px; font-weight: 700; color: var(--c-orange); }
+.pt-rhyme-hint { font-size: 16px; color: var(--c-muted); }
+
+.pt-tag-list { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
+
+.pt-pass-wrap { display: flex; justify-content: center; padding: 6px 0; }

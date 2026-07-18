@@ -1,0 +1,129 @@
+/* 家长 PIN 页（Itc5N / N6EIWP）— 深棕全屏 + 白色 pin card */
+
+.pin-page {
+  flex: 1;
+  align-self: stretch;
+  background: var(--c-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 36px 16px;
+  min-height: 100vh;
+}
+
+.pin-card {
+  width: 380px;
+  max-width: 100%;
+  background: var(--bg-card);
+  border-radius: 24px;
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.32);
+}
+.pin-card--set { width: 400px; padding: 32px; gap: 14px; }
+
+.pin-card__icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.pin-card__icon--green { background: var(--c-green-lt); }
+.pin-card--set .pin-card__icon { width: 60px; height: 60px; border-radius: 30px; }
+
+.pin-card__title {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--c-dark);
+}
+.pin-card__sub {
+  font-size: 16px;
+  color: var(--c-muted);
+  text-align: center;
+}
+.pin-card__err {
+  font-size: 16px;
+  color: var(--c-red);
+  padding: 4px 12px;
+  background: #ffe0e0;
+  border-radius: 999px;
+}
+.pin-card__hint {
+  font-size: 16px;
+  color: var(--c-muted);
+}
+
+.pin-dots {
+  display: flex;
+  gap: 16px;
+  padding: 6px 0;
+}
+.pin-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  background: #e5ddd0;
+  transition: background 0.15s;
+}
+.pin-dot--on { background: var(--c-green); }
+.pin-card--set .pin-dot { width: 14px; height: 14px; border-radius: 7px; }
+.pin-card--set .pin-dots { gap: 14px; }
+
+.pin-field { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.pin-field__label { font-size: 16px; font-weight: 600; color: var(--c-mid); }
+
+.pin-pad { display: flex; flex-direction: column; gap: 12px; }
+.pin-pad--sm { gap: 10px; }
+.pin-pad__row { display: flex; gap: 12px; }
+.pin-pad--sm .pin-pad__row { gap: 10px; }
+
+.pin-key {
+  width: 62px;
+  height: 62px;
+  border-radius: 31px;
+  background: #f2eee4;
+  border: 0;
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--c-dark);
+  cursor: pointer;
+  transition: transform 0.05s, background 0.15s;
+}
+.pin-key:hover { background: #ece5d3; }
+.pin-key:active { transform: scale(0.94); }
+.pin-key--ghost {
+  background: transparent;
+  font-size: 16px;
+  color: var(--c-muted);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.pin-key--ghost:hover { background: rgba(0, 0, 0, 0.04); }
+.pin-pad--sm .pin-key { width: 56px; height: 56px; border-radius: 28px; font-size: 22px; }
+
+.pin-save {
+  align-self: stretch;
+  padding: 12px 0;
+  background: var(--c-green);
+  color: #fff;
+  border: 0;
+  border-radius: 12px;
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(91, 173, 82, 0.25);
+  transition: transform 0.05s;
+}
+.pin-save:hover { background: #4d9e45; }
+.pin-save:active { transform: translateY(1px); }

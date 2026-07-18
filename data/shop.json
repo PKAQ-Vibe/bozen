@@ -1,0 +1,81 @@
+[
+  {
+    "id": "game-weekend-1h",
+    "category": "game",
+    "name": "周末游戏 +1 小时",
+    "description": "周末加 1 小时游戏时长（受每周总上限约束）",
+    "price": 150,
+    "weeklyLimit": 3,
+    "emoji": "🎮"
+  },
+  {
+    "id": "game-friday-night",
+    "category": "game",
+    "name": "周五游戏之夜",
+    "description": "周五晚 2 小时不打扰",
+    "price": 250,
+    "weeklyLimit": 1,
+    "emoji": "🌙"
+  },
+  {
+    "id": "game-monthly",
+    "category": "game",
+    "name": "游戏月会员",
+    "description": "1 个月游戏会员",
+    "price": 700,
+    "emoji": "💎"
+  },
+
+  {
+    "id": "priv-skip-task",
+    "category": "privilege",
+    "name": "免做一项任务",
+    "description": "免今日任一项非考核任务（家长保留否决权）",
+    "price": 200,
+    "emoji": "🎟️"
+  },
+  {
+    "id": "priv-watch-game",
+    "category": "privilege",
+    "name": "今晚看哪场球我决定",
+    "description": "晚间球赛挑场子",
+    "price": 120,
+    "emoji": "📺"
+  },
+
+  {
+    "id": "football-jersey",
+    "category": "football",
+    "name": "球星签名球衣（复刻）",
+    "description": "限定款球衣，需家长二次确认",
+    "price": 1200,
+    "emoji": "👕"
+  },
+  {
+    "id": "football-shoes-200",
+    "category": "football",
+    "name": "球鞋券（200 元档）",
+    "description": "球鞋券，每年最多兑换 2 双",
+    "price": 800,
+    "yearlyLimit": 2,
+    "emoji": "👟"
+  },
+  {
+    "id": "football-shoes-300",
+    "category": "football",
+    "name": "球鞋券（300 元档）",
+    "description": "球鞋券，每年最多兑换 2 双（与其他档共享上限）",
+    "price": 1100,
+    "yearlyLimit": 2,
+    "emoji": "👟"
+  },
+  {
+    "id": "football-shoes-400",
+    "category": "football",
+    "name": "球鞋券（400 元档）",
+    "description": "球鞋券，每年最多兑换 2 双（与其他档共享上限）",
+    "price": 1500,
+    "yearlyLimit": 2,
+    "emoji": "👟"
+  }
+]

@@ -1,0 +1,151 @@
+.rec-page { display: flex; justify-content: center; padding: 24px; }
+.rec-card {
+  max-width: 720px;
+  width: 100%;
+  display: flex !important;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.rec-lines { display: flex; flex-direction: column; gap: 8px; }
+.rec-line {
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--c-border);
+  font-family: var(--font-heading);
+  font-size: 16px;
+  color: var(--c-dark);
+  text-align: center;
+  transition: all 0.15s;
+}
+.rec-line--active {
+  background: var(--c-green-lt);
+  border-color: var(--c-green);
+  transform: scale(1.03);
+  font-weight: 700;
+}
+.rec-line--done { opacity: 0.6; }
+
+.rec-wave {
+  background: #22402f;
+  border-radius: 10px;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+}
+.rec-wave canvas { width: 100%; height: 80px; display: block; }
+
+.rec-clarity { display: flex; align-items: center; gap: 10px; }
+.rec-clarity__label { font-size: 16px; color: var(--c-muted); }
+.rec-clarity__bar { flex: 1; height: 10px; background: #ede8e0; border-radius: 5px; overflow: hidden; }
+.rec-clarity__bar > div { height: 100%; }
+.rec-clarity__pct { font-family: var(--font-heading); font-size: 16px; font-weight: 700; width: 42px; text-align: right; }
+
+.rec-controls { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+.rec-note {
+  font-size: 16px;
+  color: var(--c-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 12px;
+  background: #f7f3ea;
+  border-radius: 8px;
+}
+
+.rec-card__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.rec-card__spacer { flex: 1; }
+
+.rec-line { text-align: left; line-height: 1.7; }
+
+/* 译文 / 注释 */
+.rec-translation { display: flex; flex-direction: column; gap: 6px; }
+.rec-translation__label,
+.rec-anno__label {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--c-mid);
+}
+.rec-translation__p {
+  font-size: 16px;
+  color: var(--c-dark);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.rec-anno { display: flex; flex-direction: column; gap: 6px; }
+.rec-anno__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 4px 12px;
+}
+.rec-anno__row {
+  display: flex;
+  gap: 6px;
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 3px 6px;
+  border-radius: 4px;
+}
+.rec-anno__row:hover { background: #fff9e8; }
+.rec-anno__no { color: var(--c-orange); font-weight: 700; flex-shrink: 0; }
+.rec-anno__term { color: var(--c-dark); font-weight: 700; flex-shrink: 0; }
+.rec-anno__mean { color: var(--c-mid); }
+
+/* 选篇页 */
+.rec-picker { display: flex; flex-direction: column; gap: 12px; }
+.rec-picker__units { display: flex; flex-direction: column; gap: 18px; }
+.rec-picker__unit { display: flex; flex-direction: column; gap: 8px; }
+.rec-picker__unit-head { display: flex; align-items: center; gap: 8px; }
+.rec-picker__spacer { flex: 1; }
+
+.rec-picker__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 10px;
+}
+.rec-picker__card-link { text-decoration: none; }
+.rec-picker__card {
+  display: flex !important;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 14px !important;
+  transition: transform 0.15s;
+}
+.rec-picker__card:hover { transform: translateY(-2px); }
+.rec-picker__card-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: space-between;
+}
+.rec-picker__card-title {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--c-dark);
+}
+.rec-picker__card-author { font-size: 16px; color: var(--c-muted); }
+.rec-picker__card-preview {
+  font-size: 16px;
+  color: var(--c-mid);
+  line-height: 1.5;
+  min-height: 34px;
+}
+.rec-picker__card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 16px;
+  color: var(--c-muted);
+  padding-top: 4px;
+  border-top: 1px dashed var(--c-border);
+}

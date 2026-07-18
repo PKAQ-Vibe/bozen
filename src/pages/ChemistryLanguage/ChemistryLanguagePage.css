@@ -1,0 +1,50 @@
+.chem-page { display: flex; flex-direction: column; gap: 16px; }
+.chem-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
+.chem-nav a {
+  padding: 10px 18px;
+  border: 1px solid var(--c-border);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--c-mid);
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.chem-nav a:hover { color: var(--c-green); border-color: var(--c-green); }
+.chem-card { display: flex !important; flex-direction: column; gap: 16px; scroll-margin-top: 20px; }
+.chem-symbol-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; }
+.chem-symbol {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 62px;
+  padding: 10px 14px;
+  border: 1px solid var(--c-border);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.72);
+}
+.chem-symbol strong { min-width: 46px; color: var(--c-green); font-family: var(--font-heading); font-size: 22px; font-weight: 900; }
+.chem-symbol span { color: var(--c-mid); font-size: 16px; line-height: 1.5; }
+.chem-rhyme { padding: 18px 20px; border-radius: 12px; background: #fff9e8; color: var(--c-dark); font-size: 20px; font-weight: 800; line-height: 1.9; text-align: center; }
+.chem-notes { display: flex; flex-wrap: wrap; gap: 10px; }
+.chem-steps { margin: 0; padding-left: 28px; color: var(--c-mid); font-size: 16px; line-height: 1.8; }
+.chem-steps li + li { margin-top: 8px; }
+.chem-example-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.chem-example-row code { padding: 10px 14px; border-radius: 8px; background: #eaf7ef; color: #20593a; font-family: var(--font-heading); font-size: 20px; font-weight: 800; }
+.chem-equation-groups { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.chem-equation-group { overflow: hidden; border: 1px solid var(--c-border); border-radius: 12px; }
+.chem-equation-group h3 { margin: 0; padding: 12px 14px; background: #eaf7ef; color: var(--c-green); font-size: 18px; }
+.chem-equation { display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; border-top: 1px solid var(--c-border); }
+.chem-equation strong { color: var(--c-dark); font-size: 17px; line-height: 1.6; }
+.chem-equation span { color: var(--c-muted); font-size: 16px; line-height: 1.5; }
+.chem-legend, .chem-check { display: flex !important; align-items: center; flex-wrap: wrap; gap: 12px 20px; font-size: 16px; }
+.chem-legend { padding: 14px; border-radius: 10px; background: #f7f3e9; color: var(--c-mid); }
+.chem-legend b { color: var(--c-orange); }
+.chem-check { color: #f5ede0; }
+.chem-check span::before { content: '□ '; color: var(--c-yellow); font-weight: 900; }
+@media (max-width: 900px) { .chem-equation-groups { grid-template-columns: 1fr; } }
+@media (max-width: 560px) {
+  .chem-symbol-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .chem-symbol { align-items: flex-start; flex-direction: column; gap: 2px; }
+  .chem-rhyme { text-align: left; }
+}

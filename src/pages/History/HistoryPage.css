@@ -1,0 +1,37 @@
+.history-page { display: flex; flex-direction: column; gap: 12px; }
+.history-empty { padding: 40px; text-align: center; color: var(--c-muted); }
+.history-list { display: flex; flex-direction: column; gap: 12px; }
+
+.history-day { display: flex !important; flex-direction: column; gap: 12px; }
+.history-day__head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.history-day__date {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--c-dark);
+}
+.history-day__spacer { flex: 1; }
+
+.history-day__rows { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+.history-day__row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 4px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.history-day__row:hover { background: #fff9e8; }
+.history-day__status {
+  width: 20px;
+  text-align: center;
+  font-weight: 700;
+}
+.history-day__status--approved { color: var(--c-green); }
+.history-day__status--awaiting_review { color: var(--c-yellow); }
+.history-day__status--rejected { color: var(--c-red); }
+.history-day__title { flex: 1; color: var(--c-dark); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.history-day__pts { color: var(--c-orange); font-weight: 700; }
+.history-day__more { padding: 4px 6px; font-size: 16px; color: var(--c-muted); font-style: italic; }
+.history-day__pending { padding: 4px 6px; font-size: 16px; color: var(--c-muted); }

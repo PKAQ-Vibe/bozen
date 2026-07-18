@@ -1,0 +1,7 @@
+[
+  { "id": "bed-desk",   "label": "整理被子 + 书桌", "emoji": "🛏", "points": 8 },
+  { "id": "shoes",      "label": "刷鞋",             "emoji": "👟", "points": 5 },
+  { "id": "laundry",    "label": "洗袜子、内衣",     "emoji": "🧺", "points": 6 },
+  { "id": "teeth-feet", "label": "刷牙、洗脚",       "emoji": "🦷", "points": 5 },
+  { "id": "chores",     "label": "家务劳动：洗盘子洗碗 / 扫地拖地", "emoji": "🧹", "points": 10 }
+]

@@ -1,0 +1,15 @@
+{
+  "pomodoroMinutes": 25,
+  "pomodoroBonusPerCycle": 15,
+  "pomodoroStreakBonus": 50,
+  "pomodoroFinishMultiplier": 1.2,
+
+  "slackMaxRatio": 0.2,
+
+  "timeBankDailyCapMinutes": 60,
+  "timeBankHighTierMinutes": 30,
+  "timeBankHighRate": 2.0,
+  "timeBankMidRate": 1.0,
+
+  "challengeBonusRatio": 0.3
+}

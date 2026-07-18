@@ -1,0 +1,92 @@
+/* zen.pen 设计 token → CSS 变量（与 .pen 文件中的 variable name 一一对应） */
+:root {
+  /* fonts */
+  --font-body: 'Inter', 'Noto Sans SC', system-ui, sans-serif;
+  --font-heading: 'Funnel Sans', 'Inter', 'Noto Sans SC', system-ui, sans-serif;
+
+  /* surfaces */
+  --bg-main: #f7f0e2;       /* parchment 主背景 */
+  --bg-card: #fffcf4;       /* 卡片底 */
+  --bg-sb: #3d6b4f;         /* 侧栏深绿 */
+  --sb-act: #2a4a39;        /* 侧栏激活态 */
+  --sb-muted: #7aaf92;      /* 侧栏次要文字 */
+  --sb-text: #e8f5ee;       /* 侧栏主文字 */
+
+  /* text */
+  --c-dark: #2c1a0e;
+  --c-mid: #5c3d20;
+  --c-muted: #9c7b5a;
+  --c-border: #e5d9c4;
+
+  /* accent */
+  --c-green: #5bad52;
+  --c-green-lt: #e8f5e0;
+  --c-yellow: #f5c518;
+  --c-yellow-lt: #fff9e0;
+  --c-orange: #e8834a;
+  --c-red: #e84848;
+  --c-blue: #5db8c8;
+  --c-purple: #9b7fd4;
+
+  --text-line-height: 1.5;
+  --control-height: 40px;
+  --space-text: 8px;
+  --space-row: 12px;
+
+  color: var(--c-dark);
+  font-family: var(--font-body);
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: var(--bg-main);
+  font-size: 16px;
+  line-height: var(--text-line-height);
+}
+
+* { box-sizing: border-box; }
+
+button, input, textarea, select {
+  font-family: inherit;
+  line-height: 1.4;
+}
+button, input:not([type="checkbox"]):not([type="radio"]), select { min-height: var(--control-height); }
+textarea { line-height: 1.6; }
+
+/* 全系统可读性下限：覆盖 UI 组件库内部的小字号。 */
+button,
+button *,
+input,
+textarea,
+select,
+[class*="animal-text"],
+[class*="animal-value"],
+[class*="animal-ribbonText"],
+[class*="animal-tabLabel"],
+[class*="animal-tabIcon"] {
+  font-size: 16px !important;
+  line-height: 1.4;
+}
+[class*="animal-card"] { font-size: 16px; line-height: var(--text-line-height); }
+[class*="animal-tag"],
+[class*="animal-ribbon"] { line-height: 1.4; }
+
+a { color: inherit; text-decoration: none; }
+
+/* animal-island-ui Tabs：全局禁止 tab 换行；容器不够宽时改为横向滚动 */
+[class*="animal-tabList"] {
+  flex-wrap: nowrap !important;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--c-border) transparent;
+}
+[class*="animal-tabList"]::-webkit-scrollbar { height: 4px; }
+[class*="animal-tabList"]::-webkit-scrollbar-thumb { background: var(--c-border); border-radius: 2px; }
+[class*="animal-tabItem"] {
+  flex-shrink: 0 !important;
+  white-space: nowrap;
+}
+[class*="animal-tabLabel"] { white-space: nowrap; }

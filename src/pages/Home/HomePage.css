@@ -1,0 +1,283 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* island Card 已经带 bg/border/radius/shadow —— 仅补充布局 */
+.surface-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.surface-card__spacer { flex: 1; }
+/* island Card 内的内容 padding 已由 Card 自己控制；我们的手写卡还依赖 20px padding */
+.quick-focus.animal-card,
+.prog-card.animal-card,
+.skill-entry.animal-card,
+.habits-card.animal-card,
+.task-card.animal-card {
+  padding: 16px;
+}
+
+/* ───────── ChallengeBanner ───────── */
+.challenge-banner {
+  background: #2c2317;
+  border: 1.5px solid var(--c-yellow);
+  border-radius: 14px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 4px 14px rgba(44, 35, 23, 0.25);
+}
+.challenge-banner__icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: var(--c-yellow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  flex-shrink: 0;
+}
+.challenge-banner__info { flex: 1; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.challenge-banner__title-row { display: flex; align-items: center; gap: 8px; }
+.challenge-banner__title {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--c-yellow);
+}
+.challenge-banner__sub { font-size: 16px; color: #c8b89c; line-height: 1.5; }
+.challenge-banner__progress-row { display: flex; align-items: center; gap: 10px; }
+.challenge-banner__progress-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #e8d9b8;
+  white-space: nowrap;
+}
+.challenge-banner__progress-bar {
+  flex: 1;
+  height: 8px;
+  background: #3d3220;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.challenge-banner__progress-fill { height: 100%; background: var(--c-yellow); }
+.challenge-banner__countdown {
+  background: #3d2817;
+  border-radius: 10px;
+  padding: 6px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+.challenge-banner__cd-label { font-size: 16px; color: #c8b89c; }
+.challenge-banner__cd-value { font-family: var(--font-heading); font-size: 16px; font-weight: 700; color: var(--c-yellow); }
+.challenge-banner--done { border-color: var(--c-green); }
+.challenge-toast { font-size: 16px; font-weight: 600; text-align: center; }
+
+/* ───────── StreakBanner ───────── */
+.streak-banner {
+  background: var(--c-yellow-lt);
+  border: 1.5px solid var(--c-yellow);
+  border-radius: 14px;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  box-shadow: 0 4px 12px rgba(245, 197, 24, 0.12);
+}
+.streak-banner__fire {
+  width: 48px; height: 48px;
+  background: #fff; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; flex-shrink: 0;
+}
+.streak-banner__info { display: flex; flex-direction: column; gap: 3px; }
+.streak-banner__title {
+  font-family: var(--font-heading);
+  font-size: 17px; font-weight: 700; color: #8b6914;
+}
+.streak-banner__sub { font-size: 16px; color: var(--c-mid); }
+.streak-banner__spacer { flex: 1; }
+.streak-banner__week { display: flex; gap: 8px; }
+.streak-week__day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.streak-week__dot {
+  width: 24px; height: 24px;
+  border-radius: 12px;
+  background: var(--c-green);
+  display: flex; align-items: center; justify-content: center;
+}
+.streak-week__dot--today {
+  background: #fff;
+  border: 2px solid var(--c-orange);
+}
+.streak-week__dot--empty {
+  background: #f0ede8;
+  border: 1.5px solid var(--c-border);
+}
+.streak-week__day > span { font-size: 16px; color: var(--c-muted); }
+
+/* ───────── Cols ───────── */
+.home__cols { display: grid; grid-template-columns: 400px 1fr; gap: 20px; }
+@media (max-width: 1100px) { .home__cols { grid-template-columns: 1fr; } }
+.home__left, .home__right { display: flex; flex-direction: column; gap: 16px; }
+
+/* ───────── QuickFocus ───────── */
+.quick-focus {
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+}
+.quick-focus__icon {
+  width: 46px; height: 46px;
+  background: #ffe8e8; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; flex-shrink: 0;
+}
+.quick-focus__info { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.quick-focus__title {
+  font-family: var(--font-heading);
+  font-size: 16px; font-weight: 700; color: var(--c-dark);
+}
+.quick-focus__sub { font-size: 16px; color: var(--c-muted); }
+
+/* ───────── ProgCard ───────── */
+.prog-card { box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10); }
+.prog-card__head { display: flex; align-items: center; gap: 8px; }
+.prog-card__title {
+  font-family: var(--font-heading);
+  font-size: 16px; font-weight: 700; color: var(--c-dark);
+}
+.prog-card__sub { font-size: 16px; color: var(--c-muted); }
+.prog-row { display: flex; align-items: center; gap: 10px; }
+.prog-row__name { width: 40px; font-size: 16px; color: var(--c-mid); flex-shrink: 0; }
+.prog-row__bar {
+  flex: 1;
+  height: 8px; background: #ede8e0; border-radius: 4px; overflow: hidden;
+}
+.prog-row__fill { height: 100%; border-radius: 4px; }
+.prog-row__pct { width: 44px; text-align: right; font-size: 16px; font-weight: 600; flex-shrink: 0; }
+
+/* ───────── SkillEntry ───────── */
+.skill-entry { padding: 18px; gap: 14px; }
+.skill-entry__head { display: flex; align-items: center; gap: 8px; }
+.skill-entry__title {
+  font-family: var(--font-heading); font-size: 16px; font-weight: 700; color: var(--c-dark);
+}
+.skill-entry__lines { display: flex; flex-direction: column; gap: 8px; }
+.skill-line { display: flex; align-items: center; gap: 10px; }
+.skill-line__name { width: 48px; font-size: 16px; color: var(--c-mid); flex-shrink: 0; }
+.skill-line__dots { flex: 1; display: flex; gap: 6px; }
+.skill-dot {
+  width: 12px; height: 12px;
+  border-radius: 6px;
+  background: #ede8e0;
+}
+.skill-dot--filled { background: var(--c-green); }
+.skill-line__count { font-size: 16px; color: var(--c-muted); font-weight: 600; }
+.skill-entry__bottom { display: flex; align-items: center; gap: 10px; }
+
+/* ───────── 今日任务 ───────── */
+.task-section { display: flex; flex-direction: column; gap: 8px; }
+.task-section__head {
+  display: flex; align-items: center; gap: 10px;
+  padding: 0 4px;
+}
+.task-section__title {
+  font-family: var(--font-heading);
+  font-size: 18px; font-weight: 700; color: var(--c-dark);
+}
+.task-list { display: flex; flex-direction: column; gap: 8px; }
+.task-card {
+  background: var(--bg-card);
+  border: 1px solid var(--c-border);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+.task-card--done {
+  background: #f0f9f0;
+  border-color: #c0e0c0;
+}
+.task-card__check {
+  width: 22px; height: 22px;
+  border-radius: 6px;
+  border: 1.5px solid var(--c-border);
+  background: var(--bg-card);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.task-card__check--done { background: var(--c-green); border-color: var(--c-green); }
+.task-card__info { flex: 1; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.task-card__title { font-size: 16px; font-weight: 600; color: var(--c-dark); }
+.task-card__title--done { color: var(--sb-muted); font-weight: 400; }
+.task-card__diff { font-size: 16px; color: var(--c-muted); }
+.task-card__praise {
+  margin-top: 4px;
+  padding: 4px 8px;
+  background: #fff9e0;
+  border: 1px solid var(--c-yellow);
+  border-radius: 6px;
+  font-size: 16px;
+  color: #8b6914;
+  font-weight: 600;
+}
+.task-card__right {
+  display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
+}
+
+/* ───────── 生活习惯 ───────── */
+.habits-card { padding: 18px; gap: 10px; }
+.habits-card__head { display: flex; align-items: center; gap: 10px; }
+.habits-card__emoji { font-size: 17px; }
+.habits-card__title-wrap { flex: 1; display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.habits-card__title {
+  font-family: var(--font-heading); font-size: 16px; font-weight: 700; color: var(--c-dark);
+}
+.habits-card__sub { font-size: 16px; color: var(--c-muted); }
+.habit-checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 200px;
+}
+.habit-checkbox-label > span:first-child { font-size: 16px; line-height: 1.5; }
+.habit-checkbox-label .habit-chip__label { flex: 1; color: var(--c-dark); font-size: 16px; }
+.habit-checkbox-label .habit-chip__pts { font-size: 16px; font-weight: 700; color: var(--c-green); }
+.habits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.habit-chip {
+  display: flex; align-items: center; gap: 6px;
+  padding: 12px;
+  line-height: 1.5;
+  background: var(--bg-card);
+  border: 1px solid var(--c-border);
+  border-radius: 10px;
+  font-size: 16px;
+}
+.habit-chip--done { background: #f0f9f0; border-color: #c0e0c0; }
+.habit-chip__label { flex: 1; color: var(--c-dark); }
+.habit-chip__pts { font-size: 16px; font-weight: 700; color: var(--c-green); }
+
+@media (max-width: 720px) {
+  .challenge-banner, .streak-banner { flex-wrap: wrap; }
+  .habits-grid { grid-template-columns: 1fr 1fr; }
+}

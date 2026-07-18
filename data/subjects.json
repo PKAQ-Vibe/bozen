@@ -1,0 +1,14 @@
+[
+  { "id": "chinese", "name": "语文", "color": "app-red", "emoji": "📖" },
+  { "id": "math", "name": "数学", "color": "app-blue", "emoji": "🧮" },
+  { "id": "english", "name": "英语", "color": "app-orange", "emoji": "🔤" },
+  { "id": "physics", "name": "物理", "color": "purple", "emoji": "⚙️" },
+  { "id": "chemistry", "name": "化学", "color": "app-teal", "emoji": "🧪" },
+  { "id": "politics", "name": "政治", "color": "warm-peach-pink", "emoji": "🗳️" },
+  { "id": "history", "name": "历史", "color": "brown", "emoji": "📜" },
+  { "id": "geography", "name": "地理", "color": "lime-green", "emoji": "🌍" },
+  { "id": "biology", "name": "生物", "color": "app-green", "emoji": "🌱" },
+  { "id": "reading", "name": "阅读拓展", "color": "yellow-green", "emoji": "📚" },
+  { "id": "sports", "name": "运动", "color": "app-yellow", "emoji": "⚽" },
+  { "id": "habit", "name": "习惯", "color": "app-pink", "emoji": "🌟" }
+]

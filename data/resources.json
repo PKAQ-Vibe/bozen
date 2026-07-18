@@ -1,0 +1,202 @@
+[
+  {
+    "id": "eng-textbook-8up",
+    "subject": "english",
+    "emoji": "📕",
+    "title": "英语课本 八上（鲁教 2026）",
+    "sub": "本学期教材 · 点击查看 PDF",
+    "url": "/textbooks/english-8up-lujiao.pdf"
+  },
+  {
+    "id": "math-textbook-8up",
+    "subject": "math",
+    "emoji": "📗",
+    "title": "数学课本 八上（鲁教 2026）",
+    "sub": "本学期教材 · 点击查看 PDF",
+    "url": "/textbooks/math-8up-lujiao.pdf"
+  },
+  {
+    "id": "eng-ncego",
+    "subject": "english",
+    "emoji": "🎬",
+    "title": "极速英语·同步视频",
+    "sub": "八上鲁教配套课时精讲 ⭐",
+    "url": "https://www.ncego.com/"
+  },
+  {
+    "id": "eng-nce-2",
+    "subject": "english",
+    "emoji": "📘",
+    "title": "新概念英语 第二册",
+    "sub": "语法核心 · 初中重点",
+    "url": "https://www.ncego.com/books/nce2"
+  },
+  {
+    "id": "eng-nce-1",
+    "subject": "english",
+    "emoji": "📗",
+    "title": "新概念英语 第一册",
+    "sub": "语音与句型入门",
+    "url": "https://www.ncego.com/books/nce1"
+  },
+  {
+    "id": "eng-reading",
+    "subject": "english",
+    "emoji": "📖",
+    "title": "中考阅读理解专项",
+    "sub": "限时训练 30 篇",
+    "url": "#"
+  },
+  {
+    "id": "eng-writing",
+    "subject": "english",
+    "emoji": "✍️",
+    "title": "英语写作范文库",
+    "sub": "书信 / 话题作文",
+    "url": "https://www.diyifanwen.com/zuowen/yingyuzuowen/zkyyzw/"
+  },
+  {
+    "id": "math-textbook",
+    "subject": "math",
+    "emoji": "📐",
+    "title": "数学教材同步",
+    "sub": "初三上 · 章节精讲",
+    "url": "#"
+  },
+  {
+    "id": "math-8down-sync",
+    "subject": "math",
+    "emoji": "🎬",
+    "title": "八下数学同步视频",
+    "sub": "章节精讲 · 配合暑假预习/复习 ⭐",
+    "url": "/videos/math"
+  },
+  {
+    "id": "math-geogebra",
+    "subject": "math",
+    "emoji": "📊",
+    "title": "GeoGebra 画板",
+    "sub": "函数图像可视化",
+    "url": "https://www.geogebra.org/calculator"
+  },
+  {
+    "id": "math-hard",
+    "subject": "math",
+    "emoji": "🎯",
+    "title": "培优难题精选",
+    "sub": "中考压轴题拆解",
+    "url": "#"
+  },
+  {
+    "id": "chinese-gushi-topic",
+    "subject": "chinese",
+    "emoji": "🎋",
+    "title": "古诗鉴赏专题（拓展 · 17 题）",
+    "sub": "杜甫/白居易/李白/杨万里 等 · 学生版 202606 ⭐",
+    "url": "/textbooks/gushi-appreciation-2026-06.docx"
+  },
+  {
+    "id": "chinese-guwen",
+    "subject": "chinese",
+    "emoji": "📜",
+    "title": "古诗文速查",
+    "sub": "中考必背 61 篇",
+    "url": "#"
+  },
+  {
+    "id": "chinese-reading",
+    "subject": "chinese",
+    "emoji": "🎯",
+    "title": "现代文阅读",
+    "sub": "题型套路 + 满分模板",
+    "url": "#"
+  },
+  {
+    "id": "chinese-writing",
+    "subject": "chinese",
+    "emoji": "✒️",
+    "title": "语文作文范文库",
+    "sub": "初中作文范文",
+    "url": "https://www.diyifanwen.com/zuowen/chuzhongzuowen/"
+  },
+  {
+    "id": "chinese-writing-themes-2026",
+    "subject": "chinese",
+    "emoji": "🧠",
+    "title": "2026 中考作文热点模板",
+    "sub": "30 个高频主题 · 标签分类 · 可切换脑图",
+    "url": "/chinese-writing-themes"
+  },
+  {
+    "id": "physics-phet",
+    "subject": "physics",
+    "emoji": "🧪",
+    "title": "PhET 物理实验室",
+    "sub": "HTML5 力学 / 电学互动仿真 · 中文",
+    "url": "https://phet.colorado.edu/zh_CN/simulations/filter?subjects=physics&type=html"
+  },
+  {
+    "id": "physics-notes",
+    "subject": "physics",
+    "emoji": "📝",
+    "title": "PhET 力学笔记模板",
+    "sub": "结构化整理实验数据",
+    "url": "#"
+  },
+  {
+    "id": "chem-periodic",
+    "subject": "chemistry",
+    "emoji": "⚛️",
+    "title": "元素周期表",
+    "sub": "标准整表 + 前 20 号口诀",
+    "url": "/periodic"
+  },
+  {
+    "id": "chem-phet",
+    "subject": "chemistry",
+    "emoji": "⚗️",
+    "title": "PhET 化学实验室",
+    "sub": "HTML5 化学互动仿真 · 中文",
+    "url": "https://phet.colorado.edu/zh_CN/simulations/filter?subjects=chemistry&type=html"
+  },
+  {
+    "id": "chem-formula",
+    "subject": "chemistry",
+    "emoji": "🧬",
+    "title": "化学用语大全",
+    "sub": "初三化合价表 + 方程式",
+    "url": "/chemistry-language"
+  },
+  {
+    "id": "history-civilization",
+    "subject": "history",
+    "emoji": "🎥",
+    "title": "文明",
+    "sub": "世界史 · 对应「观世界史纪录片」任务 ⭐",
+    "url": "https://www.bilibili.com/bangumi/play/ss23992?spm_id_from=333.337.0.0"
+  },
+  {
+    "id": "critical-ted",
+    "subject": "critical",
+    "emoji": "🎤",
+    "title": "TED 演讲精选",
+    "sub": "青少年推荐 20 讲",
+    "url": "/videos/ted"
+  },
+  {
+    "id": "critical-logic",
+    "subject": "critical",
+    "emoji": "🧠",
+    "title": "逻辑思维入门",
+    "sub": "识别常见谬误",
+    "url": "#"
+  },
+  {
+    "id": "critical-debate",
+    "subject": "critical",
+    "emoji": "🗣️",
+    "title": "观点辩论训练",
+    "sub": "如何为观点提供证据",
+    "url": "#"
+  }
+]

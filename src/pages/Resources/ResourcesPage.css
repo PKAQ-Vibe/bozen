@@ -1,0 +1,85 @@
+/* 学习资源（TJVpw）— 分学科 grid */
+
+.resources-page {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.res-section { display: flex; flex-direction: column; gap: 10px; }
+.res-section__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 4px;
+}
+.res-section__emoji { font-size: 16px; }
+.res-section__title {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--c-dark);
+}
+.res-section__spacer { flex: 1; }
+.res-section__count { font-size: 16px; color: var(--c-muted); }
+
+.res-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+@media (max-width: 1100px) { .res-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .res-grid { grid-template-columns: 1fr; } }
+
+.res-card {
+  background: var(--bg-card);
+  border: 1px solid var(--c-border);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.res-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+.res-card--disabled {
+  background: #eeeae2;
+  border-color: #d8d1c5;
+  cursor: not-allowed;
+  filter: grayscale(1);
+  opacity: 0.62;
+}
+.res-card--disabled:hover { transform: none; box-shadow: none; }
+.res-card--disabled .res-card__icon { background: #dedbd4; }
+.res-card__unavailable { flex-shrink: 0; color: var(--c-muted); font-size: 16px; }
+.res-card__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--c-green-lt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.res-card__info { flex: 1; display: flex; flex-direction: column; gap: 6px; min-width: 0; line-height: 1.5; }
+.res-card__title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--c-dark);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.res-card__sub {
+  font-size: 16px;
+  color: var(--c-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
