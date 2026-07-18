@@ -6,11 +6,13 @@ import { CompleteModal, FailModal, WarnModal } from '@/components/modals/TaskFee
 import type { CompleteData } from '@/components/modals/TaskFeedbackModals';
 import SubmissionModal from '@/components/modals/SubmissionModal';
 import { useDayTasks } from '@/hooks/useDayTasks';
-import { seedConfig, settleTask } from '@/services';
+import { recordFocusLeave, recordFocusReturn, seedConfig, settleTask } from '@/services';
 import { todayKey } from '@/utils/date';
 import './FocusPage.css';
 
 const MAX_LEAVES = 3;
+const HEARTBEAT_MS = 5_000;
+const HEARTBEAT_GAP_MS = 20_000;
 
 type Phase = 'idle' | 'running' | 'paused' | 'finished';
 
@@ -39,6 +41,13 @@ export default function FocusPage() {
   const [submissionOpen, setSubmissionOpen] = useState(false);
   const [leaves, setLeaves] = useState(0);
   const tickRef = useRef<number | null>(null);
+  const phaseRef = useRef<Phase>(phase);
+  const submissionOpenRef = useRef(false);
+  const openLeaveRef = useRef<{ id: string; leftAt: number } | null>(null);
+  const lastHeartbeatRef = useRef(Date.now());
+
+  useEffect(() => { phaseRef.current = phase; }, [phase]);
+  useEffect(() => { submissionOpenRef.current = submissionOpen; }, [submissionOpen]);
 
   useEffect(() => {
     setAccumSeconds(task?.actualSeconds ?? 0);
@@ -53,31 +62,63 @@ export default function FocusPage() {
 
   useEffect(() => stopTicker, [stopTicker]);
 
-  // 监测：页面失焦 → 离开次数 +1（§三 iPad 监测）
+  const registerLeave = useCallback((leftAt: number, reason: 'background' | 'heartbeat-gap') => {
+    if (phaseRef.current !== 'running' || submissionOpenRef.current || openLeaveRef.current || !task) return;
+    const id = `${task.id}.${leftAt}`;
+    openLeaveRef.current = { id, leftAt };
+    recordFocusLeave({ id, taskId: task.id, taskTitle: task.title, date, leftAt, reason });
+    setLeaves((n) => {
+      const next = n + 1;
+      if (next >= MAX_LEAVES) {
+        setFailOpen(true);
+        setAccumSeconds(task.actualSeconds ?? 0);
+        setPomodorosSession(0);
+        setBonusSession(0);
+        stopTicker();
+        setPhase('idle');
+      } else {
+        setWarnOpen(true);
+      }
+      return next;
+    });
+  }, [date, stopTicker, task]);
+
+  const registerReturn = useCallback(() => {
+    const openLeave = openLeaveRef.current;
+    if (!openLeave) return;
+    recordFocusReturn(openLeave.id, Date.now());
+    openLeaveRef.current = null;
+  }, []);
+
+  // iPad/PWA：后台、切换应用和页面挂起会进入同一个去重后的离开事件。
   useEffect(() => {
     const onVisibility = () => {
-      if (document.hidden && phase === 'running') {
-        setLeaves((n) => {
-          const next = n + 1;
-          if (next >= MAX_LEAVES) {
-            setFailOpen(true);
-            // 判定失败：作废本次专注
-            setAccumSeconds(task?.actualSeconds ?? 0);
-            setPomodorosSession(0);
-            setBonusSession(0);
-            stopTicker();
-            setPhase('idle');
-          } else {
-            setWarnOpen(true);
-          }
-          return next;
-        });
-      }
+      if (document.hidden) registerLeave(Date.now(), 'background');
+      else registerReturn();
     };
+    const onPageHide = () => registerLeave(Date.now(), 'background');
     document.addEventListener('visibilitychange', onVisibility);
-    return () => document.removeEventListener('visibilitychange', onVisibility);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [phase]);
+    window.addEventListener('pagehide', onPageHide);
+    return () => {
+      document.removeEventListener('visibilitychange', onVisibility);
+      window.removeEventListener('pagehide', onPageHide);
+    };
+  }, [registerLeave, registerReturn]);
+
+  // iPad 可能直接冻结网页而不及时派发事件，恢复时用心跳断档补记。
+  useEffect(() => {
+    const heartbeat = window.setInterval(() => {
+      const now = Date.now();
+      if (!document.hidden && phaseRef.current === 'running' && !submissionOpenRef.current) {
+        if (now - lastHeartbeatRef.current > HEARTBEAT_GAP_MS && !openLeaveRef.current) {
+          registerLeave(lastHeartbeatRef.current, 'heartbeat-gap');
+          registerReturn();
+        }
+        lastHeartbeatRef.current = now;
+      }
+    }, HEARTBEAT_MS);
+    return () => window.clearInterval(heartbeat);
+  }, [registerLeave, registerReturn]);
 
   const persistProgress = useCallback((seconds: number, pomodoros: number) => {
     if (!task) return;
@@ -108,9 +149,9 @@ export default function FocusPage() {
     }, 1000);
   }
 
-  function start() { setPhase('running'); runTick(); }
+  function start() { lastHeartbeatRef.current = Date.now(); setPhase('running'); runTick(); }
   function pause() { stopTicker(); setPhase('paused'); persistProgress(accumSeconds, (task?.pomodoros ?? 0) + pomodorosSession); }
-  function resume() { setPhase('running'); runTick(); }
+  function resume() { lastHeartbeatRef.current = Date.now(); setPhase('running'); runTick(); }
   function abandon() {
     stopTicker();
     if (task) persistProgress(accumSeconds, (task.pomodoros ?? 0) + pomodorosSession);

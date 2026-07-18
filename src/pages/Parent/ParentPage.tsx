@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Button, Card, Input, Modal, Tabs, Tag, Title } from 'animal-island-ui';
 import type { TabItem } from 'animal-island-ui';
-import { ClipboardCheck, Gift, KeyRound, Lock, Plus, ShieldCheck, Trophy } from 'lucide-react';
+import { ClipboardCheck, Eye, Gift, KeyRound, Lock, Plus, ShieldCheck, Trophy } from 'lucide-react';
 import PageHeader from '@/components/layout/PageHeader';
 import PublishTaskModal from '@/components/modals/PublishTaskModal';
 import PublishGiftModal from '@/components/modals/PublishGiftModal';
@@ -16,6 +16,7 @@ import { useUser } from '@/hooks/useUser';
 import {
   appendDayTask,
   getWeekPoints,
+  getFocusLeaveEvents,
   saveCustomChallenge,
   saveCustomShopItem,
   saveCustomTemplate,
@@ -50,6 +51,7 @@ export default function ParentPage() {
     () => user.redemptions.filter((r) => r.status === 'pending_review'),
     [user.redemptions],
   );
+  const focusLeaveEvents = getFocusLeaveEvents().slice(0, 30);
 
   // 本周报告：跨天真实数据（周一 00:00 → 周日 23:59）
   const weekReport = useMemo(() => {
@@ -183,6 +185,7 @@ export default function ParentPage() {
             { key: 'advance', label: '💰 预支审核', children: <AdvanceReviewPanel /> },
             { key: 'habits', label: '🏠 习惯管理', children: <HabitsManagePanel /> },
             { key: 'vocab', label: '📖 词表管理', children: <VocabManagePanel /> },
+            { key: 'focus-monitor', label: '👁 专注监测', children: <FocusMonitorPanel events={focusLeaveEvents} /> },
             { key: 'settings', label: '📐 模板校准 & 脚手架', children: <ParentSettingsPanel /> },
             { key: 'backup', label: '💾 数据备份', children: <BackupPanel /> },
           ] as TabItem[]}
@@ -256,6 +259,35 @@ export default function ParentPage() {
         </Modal>
       )}
     </>
+  );
+}
+
+function FocusMonitorPanel({ events }: { events: ReturnType<typeof getFocusLeaveEvents> }) {
+  return (
+    <section className="focus-log">
+      <div className="parent-section-head">
+        <Eye size={18} color="#8b5a2b" />
+        <span className="parent-section-title">最近离开记录</span>
+        <div className="parent-section-spacer" />
+        <Tag size="small" color="app-orange">{events.length} 条</Tag>
+      </div>
+      {events.length === 0 ? <div className="parent-empty">暂无专注中离开记录</div> : (
+        <div className="focus-log__list">
+          {events.map((event) => (
+            <Card key={event.id} className="focus-log__item">
+              <div className="focus-log__main">
+                <strong>{event.taskTitle}</strong>
+                <span>{new Date(event.leftAt).toLocaleString('zh-CN')}</span>
+              </div>
+              <Tag size="small" color={event.durationSeconds && event.durationSeconds >= 60 ? 'app-orange' : 'app-yellow'}>
+                {event.durationSeconds ? `离开 ${event.durationSeconds} 秒` : '离开后未返回'}
+              </Tag>
+              <span className="focus-log__reason">{event.reason === 'heartbeat-gap' ? '后台恢复检测' : '切换/后台'}</span>
+            </Card>
+          ))}
+        </div>
+      )}
+    </section>
   );
 }
 

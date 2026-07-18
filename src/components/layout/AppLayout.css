@@ -4,6 +4,9 @@
 .app-shell {
   display: flex;
   height: 100vh;
+  height: 100dvh;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  background: var(--bg-sb);
   overflow: hidden;
 }
 
@@ -15,7 +18,7 @@
   color: var(--sb-text);
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
 }

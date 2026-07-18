@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-label="学习岛">
+  <rect width="1024" height="1024" rx="224" fill="#3d6b4f"/>
+  <circle cx="512" cy="524" r="330" fill="#5db8c8"/>
+  <path d="M186 608c78-94 194-142 326-142s248 48 326 142c-83 119-196 180-326 180S269 727 186 608Z" fill="#f5c518"/>
+  <path d="M322 586c55-50 118-76 190-76s135 26 190 76c-54 60-118 90-190 90s-136-30-190-90Z" fill="#e8f5e0"/>
+  <path d="M512 584c-49-89-31-199 48-276 67 22 112 67 134 134-78 79-187 97-276 48 9 37 38 70 94 94Z" fill="#5bad52"/>
+  <path d="M475 559c37-74 92-134 167-181" fill="none" stroke="#2a4a39" stroke-width="30" stroke-linecap="round"/>
+  <path d="M337 573c54-42 112-62 175-62v170c-65-37-123-45-175-24Z" fill="#fffdf7" stroke="#5c3d20" stroke-width="18" stroke-linejoin="round"/>
+  <path d="M687 573c-54-42-112-62-175-62v170c65-37 123-45 175-24Z" fill="#fffdf7" stroke="#5c3d20" stroke-width="18" stroke-linejoin="round"/>
+  <path d="M512 517v164" stroke="#5c3d20" stroke-width="18" stroke-linecap="round"/>
+</svg>

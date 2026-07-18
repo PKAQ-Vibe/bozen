@@ -19,3 +19,4 @@ export * from './habitService';
 export * from './backupService';
 export * from './vocabService';
 export * from './linkService';
+export * from './focusMonitorService';
