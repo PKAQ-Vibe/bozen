@@ -7,6 +7,7 @@ import path from 'node:path';
 // - 把 data/ 暴露为 @data/*，迁移到 Pro 时直接换 services 内部实现即可
 // - PDF 等静态资源放 public/，运行时以 /textbooks/*.pdf 访问；build 时会拷进 dist 根
 export default defineConfig({
+  base: '/bozen/',
   plugins: [react()],
   resolve: {
     alias: {

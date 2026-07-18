@@ -1,11 +1,13 @@
-const CACHE_NAME = 'learning-island-shell-v1';
+const CACHE_NAME = 'learning-island-shell-v2';
+const BASE_URL = new URL(self.registration.scope);
+const appUrl = (path = '') => new URL(path, BASE_URL).toString();
 const APP_SHELL = [
-  '/',
-  '/manifest.webmanifest',
-  '/icons/app-icon.svg',
-  '/icons/app-icon-192.png',
-  '/icons/app-icon-512.png',
-  '/icons/apple-touch-icon.png',
+  appUrl(),
+  appUrl('manifest.webmanifest'),
+  appUrl('icons/app-icon.svg'),
+  appUrl('icons/app-icon-192.png'),
+  appUrl('icons/app-icon-512.png'),
+  appUrl('icons/apple-touch-icon.png'),
 ];
 
 self.addEventListener('install', (event) => {
@@ -34,10 +36,10 @@ self.addEventListener('fetch', (event) => {
       fetch(request)
         .then((response) => {
           const copy = response.clone();
-          void caches.open(CACHE_NAME).then((cache) => cache.put('/', copy));
+          void caches.open(CACHE_NAME).then((cache) => cache.put(appUrl(), copy));
           return response;
         })
-        .catch(() => caches.match('/')),
+        .catch(() => caches.match(appUrl())),
     );
     return;
   }
