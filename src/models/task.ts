@@ -95,6 +95,13 @@ export interface TaskInstance {
   submissionText?: string;
   /** 孩子提交的照片（Data URL，最多 3 张 640px） */
   submissionImages?: string[];
+  /** 背诵类任务提交时保存的篇目原文，供家长审核核对。 */
+  recitationOriginal?: {
+    textId: string;
+    title: string;
+    author?: string;
+    lines: string[];
+  };
   /** §八 #2 反作弊：actualSeconds/pomodoros/completedAt 的本地签名 */
   sig?: string;
 }

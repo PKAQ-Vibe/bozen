@@ -446,6 +446,17 @@ function ReviewBody({ task, note, onNote, praise, onPraise }: ReviewBodyProps) {
           <div className="review-submission__text">{task.submissionText}</div>
         </div>
       )}
+      {task.recitationOriginal && (
+        <details className="review-recitation">
+          <summary>📖 查看背诵原文 · {task.recitationOriginal.title}</summary>
+          {task.recitationOriginal.author && (
+            <div className="review-recitation__author">{task.recitationOriginal.author}</div>
+          )}
+          <div className="review-recitation__lines">
+            {task.recitationOriginal.lines.map((line, i) => <p key={i}>{line}</p>)}
+          </div>
+        </details>
+      )}
       {submissionImages.length > 0 && (
         <div className="review-submission">
           <div className="review-submission__label">📷 作业照片（点开大图）</div>

@@ -10,6 +10,31 @@
   background: #f2ebe0;
 }
 
+.review-recitation {
+  margin: 12px 0;
+  padding: 10px 12px;
+  border: 1px solid var(--c-border);
+  border-radius: 8px;
+  background: #fff9e8;
+}
+.review-recitation summary {
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--c-mid);
+}
+.review-recitation__author {
+  margin-top: 10px;
+  color: var(--c-muted);
+  text-align: center;
+}
+.review-recitation__lines p {
+  margin: 8px 0 0;
+  color: var(--c-dark);
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+
 /* header 里的深色 pill（修改密码/PIN 已解锁） */
 .parent-lock {
   display: inline-flex;

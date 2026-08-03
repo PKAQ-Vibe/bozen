@@ -150,10 +150,16 @@ function RecitationSession({ text }: { text: RecitationText }) {
   const rafRef = useRef<number | null>(null);
   const chunksRef = useRef<BlobPart[]>([]);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const lineRefs = useRef<Array<HTMLDivElement | null>>([]);
   const levelSumRef = useRef(0);
   const levelCntRef = useRef(0);
 
   useEffect(() => () => stopAll(), []);
+
+  useEffect(() => {
+    if (status !== 'recording') return;
+    lineRefs.current[chunk]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, [chunk, status]);
 
   async function start() {
     try {
@@ -282,7 +288,11 @@ function RecitationSession({ text }: { text: RecitationText }) {
               const active = i === chunk;
               const done = i < chunk;
               return (
-                <div key={i} className={`rec-line ${active ? 'rec-line--active' : ''} ${done ? 'rec-line--done' : ''}`}>
+                <div
+                  key={i}
+                  ref={(node) => { lineRefs.current[i] = node; }}
+                  className={`rec-line ${active ? 'rec-line--active' : ''} ${done ? 'rec-line--done' : ''}`}
+                >
                   {cfg.blindMode && status === 'recording' && !active ? '••••' : line}
                 </div>
               );
@@ -357,6 +367,12 @@ function RecitationSession({ text }: { text: RecitationText }) {
                       const r = linkComplete(linkKey, {
                         actualSeconds: Math.max(60, Math.round(levelCntRef.current / 30)),
                         note: `听诵《${text.title}》清晰度 ${(clarity * 100).toFixed(0)}% 通过`,
+                        recitationOriginal: {
+                          textId: text.id,
+                          title: text.title,
+                          author: text.author || undefined,
+                          lines: text.lines,
+                        },
                       });
                       setToast(r.updatedIds.length > 0
                         ? `✅ 已联动打卡：${r.taskTitles.join('、')}`

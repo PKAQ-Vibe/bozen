@@ -24,7 +24,11 @@ const LINK_MAP: Record<string, string[]> = {
 /** 联动打卡：只更新处于 pending/in_progress 状态的任务，标记为 awaiting_review */
 export function linkComplete(
   eventKey: string,
-  info: { actualSeconds?: number; note?: string },
+  info: {
+    actualSeconds?: number;
+    note?: string;
+    recitationOriginal?: TaskInstance['recitationOriginal'];
+  },
 ): { updatedIds: string[]; taskTitles: string[] } {
   const templateIds = LINK_MAP[eventKey];
   if (!templateIds || templateIds.length === 0) return { updatedIds: [], taskTitles: [] };
@@ -44,6 +48,7 @@ export function linkComplete(
       status: 'awaiting_review',
       completedAt: now,
       submissionText: info.note ?? t.submissionText,
+      recitationOriginal: info.recitationOriginal ?? t.recitationOriginal,
       finishedInPomodoro: true,
     };
     updateTask(date, next);

@@ -1,7 +1,19 @@
-.rec-page { display: flex; justify-content: center; padding: 24px; }
+.rec-page {
+  display: block;
+  flex: 1 1 0;
+  height: 0;
+  min-height: 0;
+  padding: 24px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+}
 .rec-card {
   max-width: 720px;
   width: 100%;
+  margin: 0 auto;
   display: flex !important;
   flex-direction: column;
   gap: 14px;
@@ -26,6 +38,7 @@
   font-weight: 700;
 }
 .rec-line--done { opacity: 0.6; }
+.rec-line { scroll-margin-block: 96px; }
 
 .rec-wave {
   background: #22402f;

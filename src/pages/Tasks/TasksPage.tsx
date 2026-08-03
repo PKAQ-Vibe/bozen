@@ -2,8 +2,9 @@ import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, Card, Modal, Radio, Tabs, Tag, Title, Wallet } from 'animal-island-ui';
 import type { TabItem } from 'animal-island-ui';
-import { BookMarked, CalendarCheck, Plus, Rocket, Timer } from 'lucide-react';
+import { BookMarked, CalendarCheck, Check, Plus, Rocket, Timer } from 'lucide-react';
 import PageHeader from '@/components/layout/PageHeader';
+import SubmissionModal from '@/components/modals/SubmissionModal';
 import { useDayTasks } from '@/hooks/useDayTasks';
 import { useUser } from '@/hooks/useUser';
 import {
@@ -94,6 +95,7 @@ export default function TasksPage() {
   const [slackTask, setSlackTask] = useState<TaskInstance | null>(null);
   const [slackChoice, setSlackChoice] = useState(0);
   const [reviewing, setReviewing] = useState<TaskInstance | null>(null);
+  const [directTask, setDirectTask] = useState<TaskInstance | null>(null);
 
   const isDone = (t: TaskInstance) => t.status === 'approved' || t.status === 'awaiting_review';
 
@@ -193,6 +195,20 @@ export default function TasksPage() {
     setReviewing(null);
   }
 
+  function completeDirect(submissionText: string, submissionImages: string[]) {
+    if (!directTask) return;
+    save({
+      ...directTask,
+      pickedAt: directTask.pickedAt ?? Date.now(),
+      status: 'awaiting_review',
+      completedAt: Date.now(),
+      submissionText: submissionText || undefined,
+      submissionImages: submissionImages.length > 0 ? submissionImages : undefined,
+      finishedInPomodoro: false,
+    });
+    setDirectTask(null);
+  }
+
   return (
     <>
       <PageHeader
@@ -270,6 +286,7 @@ export default function TasksPage() {
                             onAction={() => startTask(t)}
                             onReview={() => setReviewing(t)}
                             onTogglePick={() => togglePick(t)}
+                            onComplete={() => setDirectTask(t)}
                           />
                         ))}
                       </Card>
@@ -422,6 +439,17 @@ export default function TasksPage() {
         </Modal>
       )}
 
+      {directTask && (
+        <SubmissionModal
+          open
+          taskTitle={directTask.title}
+          initialText={directTask.submissionText}
+          initialImages={directTask.submissionImages}
+          onClose={() => setDirectTask(null)}
+          onSubmit={({ text, images }) => completeDirect(text, images)}
+        />
+      )}
+
     </>
   );
 }
@@ -513,9 +541,10 @@ interface RowProps {
   onAction: () => void;
   onReview: () => void;
   onTogglePick: () => void;
+  onComplete: () => void;
 }
 
-function TaskLibRow({ task, onAction, onReview, onTogglePick }: RowProps) {
+function TaskLibRow({ task, onAction, onReview, onTogglePick, onComplete }: RowProps) {
   const done = task.status === 'approved';
   const awaiting = task.status === 'awaiting_review';
   const running = task.status === 'in_progress';
@@ -552,6 +581,11 @@ function TaskLibRow({ task, onAction, onReview, onTogglePick }: RowProps) {
       {picked && !done && !awaiting && (
         <Button size="small" type="primary" icon={<Timer size={13} />} onClick={onAction}>
           {running ? '继续' : '开始'}
+        </Button>
+      )}
+      {!done && !awaiting && (
+        <Button size="small" icon={<Check size={13} />} onClick={onComplete}>
+          完成
         </Button>
       )}
       {awaiting && (

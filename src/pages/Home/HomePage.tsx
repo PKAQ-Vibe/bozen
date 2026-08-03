@@ -11,6 +11,7 @@ import {
   Timer,
 } from 'lucide-react';
 import PageHeader from '@/components/layout/PageHeader';
+import SubmissionModal from '@/components/modals/SubmissionModal';
 import ToastModal from '@/components/modals/ToastModal';
 import {
   computeChallengeProgress,
@@ -66,7 +67,7 @@ const SUBJECT_LABELS: Record<string, string> = {
 
 export default function HomePage() {
   const date = todayKey();
-  const { tasks: allTasks } = useDayTasks(date);
+  const { tasks: allTasks, save } = useDayTasks(date);
   const { user } = useUser();
 
   // 首页"今日任务" = 孩子已选入的（每日任务自动选入 + 手动挑选的暑假作业）
@@ -122,6 +123,21 @@ export default function HomePage() {
   }
 
   const [homeToast, setHomeToast] = useState<string | null>(null);
+  const [directTask, setDirectTask] = useState<TaskInstance | null>(null);
+
+  function completeDirect(submissionText: string, submissionImages: string[]) {
+    if (!directTask) return;
+    save({
+      ...directTask,
+      pickedAt: directTask.pickedAt ?? Date.now(),
+      status: 'awaiting_review',
+      completedAt: Date.now(),
+      submissionText: submissionText || undefined,
+      submissionImages: submissionImages.length > 0 ? submissionImages : undefined,
+      finishedInPomodoro: false,
+    });
+    setDirectTask(null);
+  }
 
   function submitHabits() {
     if (doneCount === 0) { setHomeToast('还没勾选任何习惯 · 先勾几个再提交'); return; }
@@ -346,7 +362,7 @@ export default function HomePage() {
             </div>
             <div className="task-list">
               {tasks.slice(0, 5).map((t) => (
-                <TaskRow key={t.id} task={t} />
+                <TaskRow key={t.id} task={t} onComplete={() => setDirectTask(t)} />
               ))}
             </div>
           </div>
@@ -406,13 +422,23 @@ export default function HomePage() {
       </div>
 
       <ToastModal open={homeToast !== null} message={homeToast ?? ''} onClose={() => setHomeToast(null)} />
+      {directTask && (
+        <SubmissionModal
+          open
+          taskTitle={directTask.title}
+          initialText={directTask.submissionText}
+          initialImages={directTask.submissionImages}
+          onClose={() => setDirectTask(null)}
+          onSubmit={({ text, images }) => completeDirect(text, images)}
+        />
+      )}
     </>
   );
 }
 
-interface TaskRowProps { task: TaskInstance }
+interface TaskRowProps { task: TaskInstance; onComplete: () => void }
 
-function TaskRow({ task }: TaskRowProps) {
+function TaskRow({ task, onComplete }: TaskRowProps) {
   const done = task.status === 'approved' || task.status === 'awaiting_review';
   const subjectName = SUBJECT_NAME_BY_ID[task.subject] ?? task.subject;
   const subjectColor = done ? 'app-green' : 'default';
@@ -437,11 +463,16 @@ function TaskRow({ task }: TaskRowProps) {
         <Tag size="small" color={done ? 'app-green' : 'default'}>+{task.basePoints} pts</Tag>
       </div>
       {!done && (
-        <Link to={`/focus/${task.id}`}>
-          <Button size="small" icon={<Timer size={14} color="var(--c-orange)" />} style={{ background: '#FFF0E8', borderColor: 'var(--c-orange)', color: 'var(--c-orange)' }}>
-            计时
+        <>
+          <Link to={`/focus/${task.id}`}>
+            <Button size="small" icon={<Timer size={14} color="var(--c-orange)" />} style={{ background: '#FFF0E8', borderColor: 'var(--c-orange)', color: 'var(--c-orange)' }}>
+              计时
+            </Button>
+          </Link>
+          <Button size="small" icon={<Check size={13} />} onClick={onComplete}>
+            完成
           </Button>
-        </Link>
+        </>
       )}
     </Card>
   );
