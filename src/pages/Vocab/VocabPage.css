@@ -284,11 +284,18 @@
 /* 单元汇总表 */
 .vocab-unit-page {
   width: 100%;
+  flex: 1 1 0;
+  height: 0;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 14px;
   max-width: 1000px;
   margin: 0 auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
 }
 .vocab-unit-page > * { flex-shrink: 0; }
 
