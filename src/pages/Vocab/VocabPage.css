@@ -296,6 +296,7 @@
   overflow-x: hidden;
   overscroll-behavior-y: contain;
   -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
 }
 .vocab-unit-page > * { flex-shrink: 0; }
 
@@ -323,7 +324,7 @@
 }
 .vocab-toolbar__hint { font-size: 16px; color: var(--c-muted); }
 
-.vocab-list-card { padding: 0 !important; overflow: hidden; }
+.vocab-list-card { padding: 0 !important; overflow: visible; }
 .vocab-list-head, .vocab-list-row {
   display: grid;
   grid-template-columns: 48px 1.5fr 72px 2fr 150px;
@@ -335,6 +336,7 @@
 }
 .vocab-list-head {
   background: #f7f3ea;
+  border-radius: 20px 20px 0 0;
   border-bottom: 1.5px solid var(--c-border);
   font-weight: 700;
   font-size: 16px;

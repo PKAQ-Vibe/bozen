@@ -133,7 +133,8 @@
   flex-direction: column;
   background: var(--bg-main);
   min-width: 0;
-  height: 100vh;
+  min-height: 0;
+  height: 100%;
   overflow: hidden;
 }
 
