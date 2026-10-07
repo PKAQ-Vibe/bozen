@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Button, Card, Tag, Title } from 'animal-island-ui';
 import { ArrowLeft, Play } from 'lucide-react';
@@ -18,20 +18,14 @@ interface VideoProgress {
   updatedAt: number;
 }
 
-const MATH_VIDEOS = import.meta.glob<string>('@data/videos/math/*.mp4', {
-  eager: true,
-  query: '?url',
-  import: 'default',
-});
-const TED_VIDEOS = import.meta.glob<string>('@data/videos/ted/*.mp4', {
-  eager: true,
-  query: '?url',
-  import: 'default',
-});
+interface VideoManifestEntry {
+  file: string;
+  title?: string;
+}
 
 const COLLECTIONS = {
-  math: { title: '数学视频课堂', sub: '章节精讲 · 自动记录每个视频的播放进度', files: MATH_VIDEOS },
-  ted: { title: 'TED 演讲', sub: '演讲精选 · 自动记录每个视频的播放进度', files: TED_VIDEOS },
+  math: { title: '数学视频课堂', sub: '章节精讲 · 自动记录每个视频的播放进度' },
+  ted: { title: 'TED 演讲', sub: '演讲精选 · 自动记录每个视频的播放进度' },
 } as const;
 
 function titleFromPath(path: string): string {
@@ -60,18 +54,47 @@ function formatTime(seconds: number): string {
 export default function VideoLibraryPage() {
   const { collection = '' } = useParams();
   const config = COLLECTIONS[collection as keyof typeof COLLECTIONS];
-  const videos = useMemo<VideoItem[]>(() => {
-    if (!config) return [];
-    return Object.entries(config.files)
-      .map(([path, url]) => ({ id: path, title: titleFromPath(path), url }))
-      .sort((a, b) => a.title.localeCompare(b.title, 'zh-CN', { numeric: true }));
-  }, [config]);
+  const [videos, setVideos] = useState<VideoItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState('');
   const [activeId, setActiveId] = useState('');
   const [progressVersion, setProgressVersion] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   const lastSavedSecond = useRef(-1);
 
   const active = videos.find((video) => video.id === activeId) ?? videos[0];
+
+  useEffect(() => {
+    if (!config) return;
+    const controller = new AbortController();
+    setLoading(true);
+    setLoadError('');
+    fetch(`/videos/${collection}/index.json`, { cache: 'no-store', signal: controller.signal })
+      .then(async (response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json() as Promise<Array<string | VideoManifestEntry>>;
+      })
+      .then((entries) => {
+        const next = entries
+          .map((entry) => typeof entry === 'string' ? { file: entry } : entry)
+          .filter((entry) => entry.file.toLowerCase().endsWith('.mp4') && !entry.file.includes('..'))
+          .map((entry) => ({
+            id: `${collection}/${entry.file}`,
+            title: entry.title?.trim() || titleFromPath(entry.file),
+            url: `/videos/${collection}/${entry.file.split('/').map(encodeURIComponent).join('/')}`,
+          }))
+          .sort((a, b) => a.title.localeCompare(b.title, 'zh-CN', { numeric: true }));
+        setVideos(next);
+      })
+      .catch((error: Error) => {
+        if (error.name !== 'AbortError') {
+          setVideos([]);
+          setLoadError(`视频清单读取失败：${error.message}`);
+        }
+      })
+      .finally(() => setLoading(false));
+    return () => controller.abort();
+  }, [collection, config]);
 
   useEffect(() => {
     setActiveId(videos[0]?.id ?? '');
@@ -111,11 +134,13 @@ export default function VideoLibraryPage() {
         extra={<Link to="/resources"><Button size="small" icon={<ArrowLeft size={16} />}>返回学习资源</Button></Link>}
       />
       <div className="page-body video-library">
-        {videos.length === 0 ? (
+        {loading ? (
+          <Card type="dashed" className="video-empty">正在读取视频清单…</Card>
+        ) : videos.length === 0 ? (
           <Card type="dashed" className="video-empty">
             <div className="video-empty__icon">🎬</div>
             <Title size="small" color="app-yellow">视频文件准备中</Title>
-            <p>请将 MP4 文件放入 <code>data/videos/{collection}/</code>，重新启动项目后会自动显示。</p>
+            <p>{loadError || <>请上传 MP4 到 <code>/videos/{collection}/</code> 并在同目录的 <code>index.json</code> 中登记。</>}</p>
           </Card>
         ) : (
           <div className="video-layout">

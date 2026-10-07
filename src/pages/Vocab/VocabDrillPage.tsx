@@ -6,7 +6,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { Button, Card, Tag, Title } from 'animal-island-ui';
-import { ArrowLeft, Check, ChevronRight, Volume2, X } from 'lucide-react';
+import { ArrowLeft, Check, ChevronLeft, ChevronRight, Volume2, X } from 'lucide-react';
 import PageHeader from '@/components/layout/PageHeader';
 import {
   getAllProgress,
@@ -150,6 +150,11 @@ export default function VocabDrillPage() {
       setIdx((i) => i + 1);
     }
     void nextDay;
+  }
+
+  function moveWord(offset: -1 | 1) {
+    setIdx((current) => Math.min(queue.length - 1, Math.max(0, current + offset)));
+    setFlipped(false);
   }
 
   const stats = getUnitStats(unitId);
@@ -344,18 +349,42 @@ export default function VocabDrillPage() {
                 {idx + 1 >= queue.length ? '完成学习' : '下一个 →'}
               </Button>
             </>
-          ) : !flipped ? (
-            <Button block type="primary" size="large" icon={<ChevronRight size={16} />} onClick={() => setFlipped(true)}>
-              看答案
-            </Button>
           ) : (
             <>
-              <Button block danger size="large" icon={<X size={16} />} onClick={() => answer(false)}>
-                不会 · 加深
-              </Button>
-              <Button block type="primary" size="large" icon={<Check size={16} />} onClick={() => answer(true)}>
-                会 · 下一轮 +{REVIEW_INTERVALS[(getAllProgress()[cur.id]?.round ?? 0)] ?? '毕业'}天
-              </Button>
+              <div className="vocab-drill__nav">
+                <Button
+                  block
+                  size="large"
+                  icon={<ChevronLeft size={16} />}
+                  disabled={idx === 0}
+                  onClick={() => moveWord(-1)}
+                >
+                  上一个
+                </Button>
+                <Button
+                  block
+                  size="large"
+                  icon={<ChevronRight size={16} />}
+                  disabled={idx + 1 >= queue.length}
+                  onClick={() => moveWord(1)}
+                >
+                  下一个
+                </Button>
+              </div>
+              {!flipped ? (
+                <Button block type="primary" size="large" onClick={() => setFlipped(true)}>
+                  看答案
+                </Button>
+              ) : (
+                <div className="vocab-drill__judgement">
+                  <Button block danger size="large" icon={<X size={16} />} onClick={() => answer(false)}>
+                    不会 · 加深
+                  </Button>
+                  <Button block type="primary" size="large" icon={<Check size={16} />} onClick={() => answer(true)}>
+                    会 · 记住了（下次 +{REVIEW_INTERVALS[(getAllProgress()[cur.id]?.round ?? 0)] ?? '毕业'} 天复习）
+                  </Button>
+                </div>
+              )}
             </>
           )}
         </div>

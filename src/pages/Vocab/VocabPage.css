@@ -51,6 +51,7 @@
 
 /* Drill */
 .vocab-drill {
+  width: 100%;
   max-width: 640px;
   margin: 0 auto;
   display: flex;
@@ -58,6 +59,7 @@
   gap: 14px;
   padding: 12px 20px 40px;
 }
+.vocab-drill > * { flex-shrink: 0; }
 .vocab-drill__progress {
   height: 8px;
   background: #ede8e0;
@@ -114,7 +116,17 @@
 }
 
 .vocab-drill__actions { display: flex; flex-direction: column; gap: 8px; }
+.vocab-drill__nav,
+.vocab-drill__judgement {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
 .vocab-drill__foot { font-size: 16px; color: var(--c-muted); text-align: center; padding: 6px 0; }
+
+@media (max-width: 520px) {
+  .vocab-drill__judgement { grid-template-columns: 1fr; }
+}
 
 /* 方向标签（EN→ZH 或 ZH→EN） */
 .vocab-drill__dir-tag {
@@ -270,7 +282,15 @@
 }
 
 /* 单元汇总表 */
-.vocab-unit-page { display: flex; flex-direction: column; gap: 14px; max-width: 1000px; margin: 0 auto; }
+.vocab-unit-page {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.vocab-unit-page > * { flex-shrink: 0; }
 
 .vocab-toolbar { display: flex !important; flex-direction: column; gap: 8px; }
 .vocab-toolbar__row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
